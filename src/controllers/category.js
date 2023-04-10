@@ -1,44 +1,56 @@
 import Joi from "joi";
 import Category from "../models/category";
+import Product from "../models/product";
+import cloudinary from "../utils/cloudinary";
+import User from "../models/user";
 const categorySchema = Joi.object({
   name: Joi.string().required(),
+  avatar: Joi.string(),
+  cloudinary_id: Joi.string(),
 });
 export const getAll = async (req, res) => {
   try {
-    const data = await Category.find();
-    console.log(data);
-    if (data.length == 0) {
+    const categories = await Category.find();
+    if (categories.length === 0) {
       return res.status(400).json({
-        message: "Khong tim thay danh muc",
+        message: "Không tìm thấy danh mục",
       });
     }
-    return res.status(200).json(data);
+    return res.status(200).json(categories);
   } catch (error) {
     return res.json({
-      message: error,
+      message: error.message,
     });
   }
 };
 
 export const get = async (req, res) => {
   try {
-    const data = await Category.findOne({ _id: req.params.id });
-    if (!data) {
+    const category = await Category.findById(req.params.id).populate(
+      "products"
+    );
+    if (!category) {
       return res.status(400).json({
-        message: "Khong tim thay danh muc",
+        message: "Không tìm thấy danh mục",
       });
     }
-    return res.json(data);
+    return res.json(category);
   } catch (error) {
     return res.json({
-      message: error,
+      message: error.message,
     });
   }
 };
 
 export const add = async (req, res) => {
   try {
-    const body = req.body;
+    // const result = await cloudinary.uploader.upload(req.file.path);
+    const body = {
+      ...req.body,
+      // avatar: result.secure_url,
+      // cloudinary_id: result.public_id,
+    };
+    // console.log(body);
     const { error } = categorySchema.validate(body);
     if (error) {
       const errors = error.details.map((errorItem) => errorItem.message);
@@ -46,56 +58,71 @@ export const add = async (req, res) => {
         message: errors,
       });
     }
+
     const data = await Category.create(body);
     if (!data) {
       return res.status(400).json({
-        message: "Them khong thanh cong",
+        message: "Thêm danh mục thất bại",
       });
     }
     return res.json({
-      message: "Them san pham thanh cong",
+      message: "Thêm danh mục thành công",
       data,
     });
   } catch (error) {
     return res.json({
-      message: error,
+      message: error.message,
     });
   }
 };
 
 export const update = async (req, res) => {
   try {
-    const id = req.params.id;
-    const body = req.body;
-    const data = await Category.findOneAndUpdate({ _id: req.params.id }, body, {
+    // let category = await Category.findById(req.params.id);
+    // console.log("ket qua update");
+    // await cloudinary.uploader.destroy(category.cloudinary_id);
+    // console.log(req);
+    // const result = await cloudinary.uploader.upload(req.file.path);
+    // console.log(result);
+    const body = {
+      name: req.body.name,
+    };
+    const data = await Category.findByIdAndUpdate(req.params.id, body, {
       new: true,
     });
     if (!data) {
       return res.status(400).json({
-        message: "Sua that bai",
+        message: "Sửa danh mục thất bại",
       });
     }
     return res.json({
-      message: "Da sua thanh cong",
+      message: "Sửa danh mục thành công",
       data,
     });
   } catch (error) {
     return res.json({
-      message: error,
+      message: error.message,
     });
   }
 };
 
 export const remove = async (req, res) => {
   try {
-    const product = await Category.findByIdAndDelete(req.params.id);
+    const categoryId = req.params.id;
+    const categoryItem = await Category.findById(req.params.id);
+    // delete image form cloudinary
+    await cloudinary.uploader.destroy(categoryItem.cloudinary_id);
+
+    await Product.deleteMany({ category_id: categoryId });
+
+    const category = await Category.findByIdAndDelete(req.params.id);
     return res.json({
-      message: "Xoa thanh cong",
-      product,
+      message: "Xóa danh mục thành công",
+      category,
     });
   } catch (error) {
     return res.json({
-      message: error,
+      message: error.message,
     });
   }
 };

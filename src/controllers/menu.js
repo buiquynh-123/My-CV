@@ -5,7 +5,7 @@ const menuSchema = Joi.object({
   path: Joi.string().required(),
   icon: Joi.string().required(),
   position: Joi.number().required(),
-  roles: Joi.array().required(),
+  role: Joi.array().required(),
 });
 export const getAllMenu = async (req, res) => {
   try {
@@ -18,7 +18,7 @@ export const getAllMenu = async (req, res) => {
     return res.status(200).json(data);
   } catch (error) {
     return res.json({
-      message: error,
+      message: error.message,
     });
   }
 };
@@ -34,7 +34,7 @@ export const getOneMenu = async (req, res) => {
     return res.json(data);
   } catch (error) {
     return res.json({
-      message: error,
+      message: error.message,
     });
   }
 };
@@ -46,7 +46,7 @@ export const addMenu = async (req, res) => {
     if (error) {
       const errors = error.details.map((errorItem) => errorItem.message);
       return res.status(400).json({
-        message: errors,
+        message: errors.message,
       });
     }
     const data = await Menu.create(body);
@@ -61,7 +61,7 @@ export const addMenu = async (req, res) => {
     });
   } catch (error) {
     return res.json({
-      message: error,
+      message: error.message,
     });
   }
 };
@@ -83,7 +83,7 @@ export const editMenu = async (req, res) => {
     });
   } catch (error) {
     return res.json({
-      message: error,
+      message: error.message,
     });
   }
 };
@@ -97,7 +97,7 @@ export const removeMenu = async (req, res) => {
     });
   } catch (error) {
     return res.json({
-      message: error,
+      message: error.message,
     });
   }
 };

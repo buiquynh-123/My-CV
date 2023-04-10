@@ -1,13 +1,16 @@
 import Joi from "joi";
 import User from "../models/user";
 const userSchema = Joi.object({
-  username: Joi.string().required(),
+  name: Joi.string().required(),
   password: Joi.number(),
   email: Joi.string(),
   full_name: Joi.string(),
   date_of_birth: Joi.date(),
   created_at: Joi.date(),
+  avatar: Joi.string(),
+  cloudinary_id: Joi.string(),
   phone_number: Joi.number(),
+  role: Joi.string(),
 });
 
 export const getAll = async (req, res) => {
@@ -22,7 +25,7 @@ export const getAll = async (req, res) => {
     return res.status(200).json(data);
   } catch (error) {
     return res.json({
-      message: error,
+      message: error.message,
     });
   }
 };
@@ -37,7 +40,7 @@ export const get = async (req, res) => {
     return res.json(data);
   } catch (error) {
     return res.json({
-      message: error,
+      message: error.message,
     });
   }
 };
