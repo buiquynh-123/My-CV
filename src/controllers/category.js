@@ -111,9 +111,23 @@ export const remove = async (req, res) => {
     const categoryId = req.params.id;
     const categoryItem = await Category.findById(req.params.id);
     // delete image form cloudinary
-    await cloudinary.uploader.destroy(categoryItem.cloudinary_id);
-
-    await Product.deleteMany({ category_id: categoryId });
+    // await cloudinary.uploader.destroy(categoryItem.cloudinary_id);
+    const productUpdate = await Product.find({ category_id: categoryId });
+    console.log("productUpdate:" + productUpdate);
+    productUpdate.forEach(async (product) => {
+      await Product.findOneAndUpdate(
+        { _id: product._id },
+        { category_id: "6433af95d60535f5d75f1d95" },
+        { new: true }
+      );
+    });
+    await Category.findByIdAndUpdate(
+      { _id: "6433af95d60535f5d75f1d95" },
+      {
+        products: [...productUpdate],
+      }
+    );
+    // await Product.deleteMany({ category_id: categoryId });
 
     const category = await Category.findByIdAndDelete(req.params.id);
     return res.json({
