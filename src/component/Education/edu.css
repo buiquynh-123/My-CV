@@ -1,0 +1,75 @@
+.container__edu {
+  position: relative;
+  width: 100%;
+  margin-top: 120px;
+  padding: 10px 0;
+}
+.container__edu-title,
+.container__edu-info-majob {
+  font-size: 30px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.container__edu-info {
+  display: flex;
+  padding: 10px;
+  height: 250px;
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  color: #fff;
+}
+.container__edu-info-image {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 30px;
+  border: 4px solid #fff;
+  position: absolute;
+  top: -90px;
+  right: 60px;
+}
+.container__edu-info-image img {
+  width: 200px;
+  height: 200px;
+}
+.container__edu-info-content {
+  margin: 10px;
+}
+.container__edu-info-majob {
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.container__edu-info-desc {
+  margin-top: 10px;
+}
+.container__edu-info-top {
+  display: flex;
+  justify-content: space-between;
+}
+.container__edu-name {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.container__edu-year {
+  width: 140px;
+  display: flex;
+
+  justify-content: space-between;
+}
+.container__edu-line {
+  width: 1px;
+  height: 20px;
+  background: #fff;
+}
+.container__edu-name-majob {
+  margin-top: 5px;
+}
+.container__edu-name-majob-title {
+  font-size: 14px;
+  font-weight: 500;
+}

@@ -1,0 +1,55 @@
+.container__experience {
+  width: 100%;
+  margin: 20px 0;
+  padding: 10px 0;
+}
+.container__experience-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.container__experience-listproject {
+  padding: 10px;
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  border-left: #fff solid 3px;
+  color: #fff;
+}
+.container__experience-project-top {
+  display: flex;
+  justify-content: space-between;
+}
+.container__experience-project-detail {
+  display: flex;
+}
+.container__experience-icon {
+  font-size: 20px;
+  margin-right: 5px;
+}
+.container__experience-name {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.container__experience-year {
+  width: 140px;
+  display: flex;
+
+  justify-content: space-between;
+}
+.container__experience-line {
+  width: 1px;
+  height: 20px;
+  background: #fff;
+}
+.container__experience-project {
+  display: flex;
+}
+.container__experience-minus-icon {
+  font-size: 12px;
+  margin: 8px 6px;
+}
+.container__experience-detail-minus-icon {
+  font-size: 10 px;
+  margin: 8px 6px;
+}

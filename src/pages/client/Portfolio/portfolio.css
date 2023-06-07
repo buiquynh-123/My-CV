@@ -1,0 +1,8 @@
+.portfolio__title {
+  font-size: 30px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.portfolio__menu {
+  align-items: flex-start;
+}

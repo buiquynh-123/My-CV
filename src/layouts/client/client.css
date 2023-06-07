@@ -1,0 +1,22 @@
+.container__client {
+  width: 1305px;
+  padding: 60px;
+}
+.container__header {
+  position: fixed;
+  top: 0;
+  right: 60px;
+  z-index: 10;
+}
+
+.container_side_main {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 30px;
+  overflow: hidden;
+}
+
+.container__main {
+  margin-left: 60px;
+  width: 700px;
+}
