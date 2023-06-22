@@ -1,0 +1,220 @@
+@import "../../../public/scss/utils/functions.scss";
+@import "../../../public/scss/utils/variables.scss";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.container {
+  border-top: rgb(224, 223, 223) solid 1px;
+  background: $Cultured;
+  .footer {
+    max-width: 1200px;
+    margin: 20px auto 0 auto;
+    @include max-screen($xxl) {
+      max-width: 970px;
+    }
+    @include max-screen($lg) {
+      max-width: 720px;
+    }
+    @include max-screen($sm) {
+      width: 100%;
+    }
+    &-top {
+      @include Gird(grid, 4);
+      margin-bottom: 30px;
+      @include max-screen($lg) {
+        @include Gird(grid, 2);
+      }
+      @include max-screen($sm) {
+        @include Gird(grid, 1);
+      }
+      &-col {
+        padding: 0 15px;
+        &-title {
+          @include Size(1em, 600, 1.4);
+          font-family: $Geologica;
+          margin: 10px 0 10px;
+          color: $Onyx;
+          text-transform: uppercase;
+          &:hover + ul {
+            max-height: 155px;
+          }
+        }
+        ul {
+          list-style: none;
+          @include max-screen($sm) {
+            max-height: 0px;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+          }
+          li {
+            margin: 10px 0;
+            a {
+              @include Size(1em, 400, normal);
+              text-decoration: none;
+              font-family: $Geologica;
+              color: #000;
+              &:hover {
+                color: $CarminePink;
+              }
+            }
+          }
+        }
+      }
+      iframe {
+        width: 100%;
+        @include max-screen($sm) {
+          padding: 10px;
+        }
+      }
+    }
+    &-center {
+      @include Gird(grid, 2);
+      border-top: rgb(224, 223, 223) solid 1px;
+      padding: 10px 0 20px 0;
+      @include max-screen($lg) {
+        @include Gird(grid, 1);
+      }
+      @include max-screen($sm) {
+        padding: 10px;
+      }
+      @include max-screen($s) {
+        padding: 10px;
+      }
+      &-payment-methods {
+        &-title {
+          @include Size(1em, 600, 1.4);
+          font-family: $Geologica;
+          margin: 10px 0 10px;
+          color: $Onyx;
+          text-transform: uppercase;
+        }
+        &-groud {
+          @include Flex(flex, flex-start, center);
+          @include Gap(6px, 0);
+        }
+      }
+      &-customer {
+        &-title {
+          @include Size(1em, 600, 1.4);
+          font-family: $Geologica;
+          margin: 10px 0 10px;
+          color: $Onyx;
+          text-transform: uppercase;
+        }
+        &-contact {
+          @include Flex(flex, flex-start, center);
+          @include Gap(15px, 0);
+          @include max-screen($s) {
+            @include Flex(flex, center, flex-start);
+            flex-direction: column;
+          }
+          &-left {
+            @include Flex(flex, flex-start, center);
+            @include Gap(10px, 0);
+            .groud {
+              .title {
+                @include Size(1em, 400, 1.4);
+                font-family: $Geologica;
+                color: #999;
+              }
+              .phone {
+                font-size: 20px;
+                font-weight: 700;
+                text-decoration: none;
+                color: $CarminePink;
+              }
+            }
+          }
+          &-right {
+            border-left: rgb(224, 223, 223) solid 1px;
+            @include Flex(flex, flex-start, center);
+            @include Gap(10px, 0);
+            @include max-screen($s) {
+              border: 0;
+            }
+            .groud {
+              margin-left: 15px;
+              @include max-screen($s) {
+                margin-left: 40px;
+              }
+              .title {
+                @include Size(1em, 400, 1.4);
+                font-family: $Geologica;
+                color: #999;
+              }
+              .phone {
+                font-size: 20px;
+                font-weight: 700;
+                text-decoration: none;
+                color: $CarminePink;
+              }
+            }
+          }
+        }
+      }
+    }
+    &-bottom {
+      border-top: rgb(224, 223, 223) solid 1px;
+      padding: 10px 0 20px 0;
+      @include max-screen($sm) {
+        padding: 10px;
+      }
+      @include max-screen($s) {
+        padding: 10px;
+      }
+      &-title {
+        @include Size(1em, 600, 1.4);
+        font-family: $Geologica;
+        margin: 10px 0 10px;
+        color: $Onyx;
+        text-transform: uppercase;
+      }
+      &-row {
+        @include Gird(grid, 2);
+        @include max-screen($lg) {
+          @include Gird(grid, 1);
+        }
+        &-info {
+          p {
+            @include Size(1em, 400, 1.4);
+            font-family: $Geologica;
+            color: #999;
+            padding-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
+  .copyright {
+    background: #363636;
+    width: 100%;
+    &-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px 0;
+      @include max-screen($xxl) {
+        max-width: 970px;
+      }
+      @include max-screen($lg) {
+        max-width: 720px;
+      }
+      @include max-screen($sm) {
+        width: 100%;
+      }
+      @include max-screen($s) {
+        padding: 10px;
+      }
+      span {
+        color: white;
+        a {
+          color: #ea4242;
+          font-weight: 700;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

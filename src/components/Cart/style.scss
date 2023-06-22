@@ -1,0 +1,104 @@
+$textColor: red;
+.my-cart {
+  margin: 10px 20px 0;
+}
+.my-cartIcon {
+  color: red;
+  font-weight: 600;
+  font-size: 20px;
+}
+.title-cart {
+  color: #000;
+  margin-left: 10px;
+}
+
+.table-cart {
+  width: 100%;
+  margin: 20px;
+  justify-content: space-between;
+  border: 1px solid rgb(221, 220, 220);
+  padding: 5px;
+
+  &-rowFirst {
+    background-color: rgb(243, 242, 242);
+    height: 60px;
+    text-align: center;
+  }
+  &-colInfo {
+    display: flex;
+    text-align: center;
+  }
+  &-col {
+    text-align: center;
+  }
+  &-colInfoImg {
+    padding-right: 10px;
+  }
+  &-infoName,
+  &-infoColor {
+    margin: 8px 0;
+  }
+  &-infoPrice {
+    color: red;
+    font-weight: 600;
+  }
+}
+
+.order {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 30px;
+  &-totalMoney {
+    margin-bottom: 10px;
+  }
+}
+
+// mixin
+// @Mixin nameMixin(){}
+// incluce nameMixin
+@mixin bgc($bgcolor: black) {
+  background-color: $bgcolor;
+}
+.header {
+  @include bgc(red);
+}
+@mixin absoluteCenter($direction: "left") {
+  position: absolute;
+  @if $direction == "left" {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  @if $direction == "top" {
+    left: 50%;
+    transform: translateY(-50%);
+  }
+  @if $direction == "both" {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.box {
+  @include bgc(red);
+  // @include size(100px);
+  @include absoluteCenter("left");
+}
+// tạo ra một file chỉ để lưu trữ các biến
+// _variables.scss
+// khi cần dùng thì chỉ cần import file chứa các biến vào
+// nếu như có nhiều mixin thì tạo riêng ra một file _mixin để lưu trữ các mixin
+
+// reponsive
+@mixin maxWidth($value) {
+  @media screen and (max-width: $value) {
+    @content;
+  }
+}
+// nếu cần dùng thì @include minwidth(1024px){
+// display: none}
+@mixin minWidth($value) {
+  @media screen and (min-width: $value) {
+    @content;
+  }
+}

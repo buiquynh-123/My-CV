@@ -1,0 +1,40 @@
+.Header_Only {
+  display: flex;
+  justify-content: space-between;
+}
+.signup,
+.signin {
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+}
+.signup:hover,
+.signin:hover {
+  border-bottom: 1px solid rgb(36, 146, 250);
+  color: rgb(37, 146, 248);
+}
+.Header_Only {
+  padding: 0 20px;
+}
+.Header_Cart {
+  margin: 0 20px;
+  font-size: 25px;
+}
+.Header_Only_Search {
+  width: 350px;
+}
+.Header_Only_img {
+  margin: 10px 0 0 0;
+}
+
+/*  Admin */
+.Header {
+  color: green;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 20px 4px 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
