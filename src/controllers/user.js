@@ -16,7 +16,7 @@ const userSchema = Joi.object({
 export const getAll = async (req, res) => {
   try {
     const data = await User.find();
-    console.log(data);
+    // console.log(data);
     if (data.length == 0) {
       return res.status(400).json({
         message: "Khong tim thay nguoi dung",

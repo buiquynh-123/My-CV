@@ -15,13 +15,13 @@ const productSchema = mongoose.Schema(
       type: Number,
       require: true,
     },
-    image: String,
-    cloudinary_id: String,
+    images: [{ url: String, publicId: String }],
+
     category_id: {
       type: mongoose.Types.ObjectId,
-      // muốn kết nối 2 bảng với nhau thì phải dựa vào thằng objectId
+      // muốn kết nối 2 bảng với nhau thì phải dựa vào objectId
       ref: "categories",
-      // nhưng cái thằng category này cần phải liên kết
+      // nhưng cái category này cần phải liên kết
       // với một model nữa đó là model category tức là phải link đến colection
       // categories thì mới lấy đc dữ liệu
     },

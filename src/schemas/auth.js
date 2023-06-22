@@ -26,7 +26,6 @@ export const signupSchema = Joi.object({
   phone_number: Joi.number(),
   role: Joi.string(),
 });
-
 export const signinSchema = Joi.object({
   email: Joi.string().email().required().messages({
     "string.empty": "Email không được để trống",

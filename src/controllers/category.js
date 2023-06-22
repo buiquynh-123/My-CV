@@ -1,7 +1,6 @@
 import Joi from "joi";
 import Category from "../models/category";
 import Product from "../models/product";
-import cloudinary from "../utils/cloudinary";
 import User from "../models/user";
 const categorySchema = Joi.object({
   name: Joi.string().required(),

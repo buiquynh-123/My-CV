@@ -1,10 +1,10 @@
 import express from "express";
 import { getAll, get, add, update, remove } from "../controllers/category";
-import upload from "../utils/multer";
+// import upload from "../utils/multer";
 const router = express.Router();
 router.get("/categories", getAll);
 router.get("/categories/:id", get);
-router.post("/categories", upload.single("image"), add);
-router.put("/categories/:id", upload.single("image"), update);
+router.post("/categories", add);
+router.put("/categories/:id", update);
 router.delete("/categories/:id", remove);
 export default router;

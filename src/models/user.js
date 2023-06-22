@@ -10,7 +10,19 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
+    },
+    authGoogleID: {
+      type: String,
+      default: null,
+    },
+    authFacebookID: {
+      type: String,
+      default: null,
+    },
+    authType: {
+      type: String,
+      enum: ["local", "google", "facebook"],
+      default: "local",
     },
     fullname: {
       type: String,

@@ -2,6 +2,23 @@ import User from "../models/user";
 import { signinSchema, signupSchema } from "../schemas/auth";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+// import encodedToken =('../utils/token').encodedToken;
+// import { admin } from "firebase-admin";
+
+// const serviceAccount = require("/path/to/serviceAccountKey.json");
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+// });
+export const authFacebook = async (req, res, next) => {
+  const token = jwt.sign({ _id: req.user._id }, "my_secret_key");
+  res.setHeader("Authorization", token);
+  return res.status(200).json({ message: "Đăng nhập thành công" });
+};
+export const authGoogle = async (req, res, next) => {
+  const token = jwt.sign({ _id: req.user._id }, "my_secret_key");
+  res.setHeader("Authorization", token);
+  return res.status(200).json({ message: "Đăng nhập thành công" });
+};
 
 export const signup = async (req, res) => {
   try {
@@ -10,7 +27,7 @@ export const signup = async (req, res) => {
     if (error) {
       const errors = error.details.map((err) => err.message);
       return res.status(400).json({
-        messsages: errors.message,
+        messages: errors.message,
       });
     }
     const userExist = await User.findOne({ email: req.body.email });
@@ -106,67 +123,23 @@ export const signin = async (req, res) => {
 // Nhớ
 // Code lại
 // Repeat
-export const getAll = async (req, res) => {
-  try {
-    const data = await User.find();
-    console.log(data);
-    if (data.length == 0) {
-      return res.status(400).json({
-        message: "Khong tim thay nguoi dung",
-      });
-    }
-    return res.status(200).json(data);
-  } catch (error) {
-    return res.json({
-      message: error.message,
-    });
-  }
-};
-export const get = async (req, res) => {
-  try {
-    const data = await User.findOne({ _id: req.params.id });
-    if (!data) {
-      return res.status(400).json({
-        message: "Khong tim thay nguoi dung",
-      });
-    }
-    return res.json(data);
-  } catch (error) {
-    return res.json({
-      message: error.message,
-    });
-  }
-};
 
-export const update = async (req, res) => {
-  try {
-    let user = await User.findById(req.params.id);
-    let result = null;
-    if (req?.file?.path) {
-      await cloudinary.uploader.destroy(product?.cloudinary_id);
-      result = await cloudinary.uploader.upload(req?.file?.path);
-    }
-    const data = {
-      ...req.body,
-      image: result?.secure_url || product.image,
-      cloudinary_id: result?.public_id || product.cloudinary_id,
-    };
-    user = await User.findByIdAndUpdate(req.params.id, data, {
-      new: true,
-    });
-
-    if (!user) {
-      return res.status(400).json({
-        message: "Sửa sản phẩm thất bại",
-      });
-    }
-    return res.json({
-      message: "Sửa sản phẩm thành công",
-      user,
-    });
-  } catch (error) {
-    return res.json({
-      message: error.message,
-    });
-  }
-};
+// ============= Đăng nhập Google
+// export const signInWithGoogle = async (req, res) => {
+//   try {
+//     const token = req.body.token;
+//     console.log(token);
+//     const credential = admin.auth.GoogleAuthProvider.credential(token);
+//     const userCredential = admin.auth().signInWithCredential(credential);
+//     // Lấy token xác thực (ID token)
+//     const accessToken = userCredential.user.getIdToken();
+//     console.log(accessToken);
+//     // Trả về token cho người dùng
+//     return res.json({
+//       message: "Đăng nhập thành công",
+//       token: accessToken,
+//     });
+//   } catch (error) {
+//     res.status(401).json({ message: "Đăng nhập thất bại" });
+//   }
+// };

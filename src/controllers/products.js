@@ -1,14 +1,15 @@
 import Joi from "joi";
 import Product from "../models/product";
 import Category from "../models/category";
-import cloudinary from "../utils/cloudinary";
+// import cloudinary from "../utils/cloudinary";
+import cloudinary from "../config/cloudinaryConfig";
+
 const productSchema = Joi.object({
   name: Joi.string().required(),
   description: Joi.string(),
   price: Joi.number(),
   quantity: Joi.number(),
-  image: Joi.string(),
-  cloudinary_id: Joi.string(),
+  images: Joi.array(),
   category_id: Joi.string().required(),
 });
 export const getAll = async (req, res) => {
@@ -47,8 +48,9 @@ export const getAll = async (req, res) => {
 export const remove = async (req, res) => {
   try {
     const productItem = await Product.findById(req.params.id);
-    console.log("productItem: " + productItem);
-    await cloudinary.uploader.destroy(productItem.cloudinary_id);
+    await productItem.images.forEach((item) => {
+      cloudinary.uploader.destroy(item.publicId);
+    });
     const product = await Product.findByIdAndDelete(req.params.id);
 
     return res.json({
@@ -64,22 +66,32 @@ export const remove = async (req, res) => {
 
 export const add = async (req, res) => {
   try {
-    const result = await cloudinary.uploader.upload(req.file.path);
+    const images = req.files.map((file) => file.path);
+    const uploadedImages = [];
+    for (const image of images) {
+      try {
+        const result = await cloudinary.uploader.upload(image);
+        uploadedImages.push({
+          url: result.secure_url,
+          publicId: result.public_id,
+        });
+      } catch (error) {
+        console.log("error: " + error);
+      }
+    }
     const body = {
       ...req.body,
-      image: result.secure_url,
-      cloudinary_id: result.public_id,
+      images: uploadedImages,
     };
-    if (!req?.file.path) {
-      return res.status(400).json({
-        message: "upload lỗi",
-      });
-    }
-    console.log(req.file.path);
 
-    console.log(body);
     const { error } = productSchema.validate(body);
     if (error) {
+      if (images) {
+        uploadedImages.forEach((item) => {
+          const { url, ...publicId } = item;
+          cloudinary.uploader.destroy(publicId);
+        });
+      }
       const errors = error.details.map((errorItem) => errorItem.message);
       return res.status(400).json({
         message: errors.message,
@@ -156,4 +168,27 @@ export const get = async (req, res) => {
       message: error.message,
     });
   }
+};
+export const search = async (req, res) => {
+  console.log(req.body);
+  const query = {
+    $or: [
+      { name: { $regex: req.body.searchQuery.toLowerCase(), $options: "i" } },
+      {
+        description: {
+          $regex: req.body.searchQuery.toLowerCase(),
+          $options: "i",
+        },
+      },
+    ],
+  };
+
+  const cursor = await Product.find(query);
+  console.log("result: " + cursor);
+  if (!cursor) {
+    return res.status(400).json({
+      message: "Khong tim thay san pham",
+    });
+  }
+  return res.status(200).json({ cursor });
 };
