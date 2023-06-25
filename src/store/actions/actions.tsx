@@ -2,15 +2,26 @@
 import { craeteCart } from "../../api/cart";
 import { createOrder } from "../../api/order-detail";
 import { IOrderDetail } from "../../interface/order_detail";
-
+import { IProduct } from "../../interface/product";
 export const addToCart = (product: any) => {
   return async (dispatch: any) => {
     try {
-      const cartItem = await craeteCart(product);
-      dispatch({ type: "ADD_TO_CART", payload: cartItem });
+      const { data } = await craeteCart(product);
+      // const { items } = data.createCart;
+      console.log(data.updateCart.items);
+      const { ...item } = data.updateCart.items;
+      console.log(item);
+      dispatch({ type: "ADD_TO_CART", payload: item });
     } catch (error) {
       alert("Đã xảy ra lỗi: " + error);
     }
+  };
+};
+
+export const deleteCart = (product: IProduct) => {
+  return {
+    type: "DELETE_CART",
+    payload: product,
   };
 };
 
