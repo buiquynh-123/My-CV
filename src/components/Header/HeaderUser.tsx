@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image, Space, Badge, Typography, Input } from "antd";
 const { Search } = Input;
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import SideMenu from "../Menu/Menu";
+import { ICartItems } from "../../interface/cart";
+import { connect } from "react-redux";
+import { getAll } from "../../api/cart";
 export interface ISearch {
   onSearch: (keyword: string) => void;
 }
-const HeaderLayout: React.FC<ISearch> = (props) => {
+const HeaderLayout: React.FC<ISearch> = (props, dataCart) => {
+  const [carts, setCarts] = useState([]);
+  useEffect(() => {
+    getAll().then(({ data }) => {
+      setCarts(data.items);
+    });
+  }, []);
+  console.log(carts.length);
   const navigate = useNavigate();
   const { onSearch } = props;
+  console.log(dataCart);
 
   const handleSearch = (value: string) => {
     onSearch(value);
@@ -72,7 +83,7 @@ const HeaderLayout: React.FC<ISearch> = (props) => {
           enterButton
         />
 
-        <Badge className="Header_Cart" count={1}>
+        <Badge className="Header_Cart" count={carts.length}>
           <ShoppingCartOutlined />
         </Badge>
 
@@ -98,5 +109,11 @@ const HeaderLayout: React.FC<ISearch> = (props) => {
     </div>
   );
 };
+const mapStateToProps = (state: { carts: ICartItems[] }) => {
+  console.log(state.carts);
+  return {
+    dataCart: state.carts,
+  };
+};
 
-export default HeaderLayout;
+export default connect(mapStateToProps, null)(HeaderLayout);

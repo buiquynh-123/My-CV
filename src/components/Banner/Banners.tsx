@@ -20,8 +20,8 @@ const Banners = () => {
   return (
     <div className="banner">
       <Slider {...settings}>
-        {listImage.map((img) => (
-          <div>
+        {listImage.map((img, index) => (
+          <div key={index + 1}>
             <img className="banner_img" src={img} />
           </div>
         ))}

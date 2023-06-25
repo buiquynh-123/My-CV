@@ -27,19 +27,6 @@ const SideMenu = () => {
             label: "Category",
             key: "/category",
             className: "title_menu",
-
-            children: [
-              {
-                label: "Category 1",
-                key: "/category/:id",
-                className: "title_menu",
-              },
-              {
-                label: "Category2",
-                key: "/category/:id",
-                className: "title_menu",
-              },
-            ],
           },
           {
             label: "Contact",

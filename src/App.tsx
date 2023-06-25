@@ -42,16 +42,13 @@ function App() {
             index
             element={<HomePage products={products} categories={categories} />}
           />
-          <Route
-            path="products"
-            element={<ProductPage products={products} categories={[]} />}
-          />
+          <Route path="products" element={<ProductPage />} />
           <Route path="products/:id" element={<ProductDetail />} />
-          {/* <Route path="signin" element={<Auth />} /> */}
-          {/* <Route
+          {/* <Route path="signin" element={<Auth />} />} */}
+          <Route
             path="cart"
-            element={<Cart carts={carts} products={products} />}
-          /> */}
+            // element={<Cart carts={carts} products={products} />}
+          />
           <Route path="news" element={<News />} />
         </Route>
       </Routes>

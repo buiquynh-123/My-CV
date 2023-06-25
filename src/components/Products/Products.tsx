@@ -52,19 +52,16 @@ const Products = ({ products }: any) => {
       <h2 className="">Danh sách sản phẩm</h2>
       <div className="product_list">
         {data.map((product) => (
-          <div
-            className="product_item"
-            key={product?._id}
-            onClick={() => {
-              navigate(`/products/${product?._id}`);
-            }}
-          >
+          <div className="product_item" key={product?._id}>
             <div>
               <img
                 className="product-item__img"
                 width={200}
                 src={product.image}
                 alt={product.name}
+                onClick={() => {
+                  navigate(`/products/${product?._id}`);
+                }}
               />
             </div>
             <div>
